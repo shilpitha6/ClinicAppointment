@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="clinicappointment.client/clinicappointment.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="ClinicAppointment.Server/ClinicAppointment.Server.csproj" />
+</Solution>
