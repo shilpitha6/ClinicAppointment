@@ -14,6 +14,6 @@ namespace ClinicAppointmentProject.DTO
 
         public TimeOnly end_time { get; set; }
 
-        public ICollection<DoctorDTO>? DoctorDTO { get; set; }
+        
     }
 }

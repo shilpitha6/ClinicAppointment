@@ -15,24 +15,24 @@ namespace ClinicAppointmentProject.Controllers
             _patientService = patientService;
         }
 
-        [HttpGet("{patientId}")]
-        public async Task<IActionResult> GetById(int patient_id)
-        {
-            var patient = await _patientService.GetByIdAsync(patient_id);
-            if (patient == null) return NotFound();
-            return Ok(patient);
-        }
+        //[HttpGet("{patientId}")]
+        //public async Task<IActionResult> GetById(int patient_id)
+        //{
+        //    var patient = await _patientService.GetByIdAsync(patient_id);
+        //    if (patient == null) return NotFound();
+        //    return Ok(patient);
+        //}
 
-        [HttpGet("{id}/appointments")]
-        public async Task<IActionResult> GetPatientAppointments(int patient_id)
-        {
+        //[HttpGet("{id}/appointments")]
+        //public async Task<IActionResult> GetPatientAppointments(int patient_id)
+        //{
             
-            var patient = await _patientService.GetByIdAsync(patient_id);
-            if (patient == null) return NotFound($"Patient with id {patient_id} not found");
+        //    var patient = await _patientService.GetByIdAsync(patient_id);
+        //    if (patient == null) return NotFound($"Patient with id {patient_id} not found");
 
-            var appointments = await _patientService.GetPatientAppointmentsAsync(patient_id);
-            return Ok(appointments);
-        }
+        //    var appointments = await _patientService.GetPatientAppointmentsAsync(patient_id);
+        //    return Ok(appointments);
+        //}
 
     }
 }

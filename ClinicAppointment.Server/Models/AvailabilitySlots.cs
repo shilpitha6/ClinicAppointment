@@ -18,7 +18,7 @@ namespace ClinicAppointmentProject.Models
         public TimeOnly end_time { get; set; }
 
 
-        public ICollection<Doctor>? Doctor { get; set; }
+        public Doctor? Doctor { get; set; }
 
 
     }

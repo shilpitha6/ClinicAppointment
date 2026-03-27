@@ -19,26 +19,24 @@ namespace ClinicAppointmentProject.Controllers
             _doctorService = doctorService;
         }
 
+       
+
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll( int? specialty_id)
         {
-            var doctors = await _doctorService.GetAllAsync();
+            var doctors = await _doctorService.GetDoctorsAsync(specialty_id);
+            if (doctors == null || !doctors.Any()) return NotFound();
             return Ok(doctors);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetById(int doctor_id)
+        [HttpGet("{id}/slots")]
+        public async Task<IActionResult> GetDoctorAvailableSlots(int id)
         {
-            var doctors = await _doctorService.GetByIdAsync(doctor_id);
-            if (doctors == null) return NotFound();
-            return Ok(doctors);
-        }
+            var doctor = await _doctorService.GetDoctorWithAvailableSlotsAsync(id);
 
-        [HttpGet("{doctor_id}")]
-        public async Task<IActionResult> GetSlotsByDoctorId(int doctor_id)
-        {
-            var doctor = await _doctorService.GetSlotsByDoctorIdAsync(doctor_id);
-            if (doctor == null) return NotFound();
+            if (doctor == null)
+                return NotFound("Doctor not found");
+
             return Ok(doctor);
         }
 

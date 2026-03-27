@@ -20,8 +20,10 @@ namespace ClinicAppointmentProject.Models
         [ForeignKey("specialty_id")]
         public Specialty? Specialty { get; set; }
 
-        [ForeignKey("slot_id")]
-        public AvailabilitySlots? AvailabilitySlots { get; set; }
+        //[ForeignKey("slot_id")]
+        //public AvailabilitySlots? AvailabilitySlots { get; set; }
+
+        public List<AvailabilitySlots>? AvailabilitySlots { get; set; }
 
     }
 }

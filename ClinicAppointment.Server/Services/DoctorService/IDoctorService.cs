@@ -5,10 +5,10 @@ namespace ClinicAppointmentProject.Services.DoctorService
 {
     public interface IDoctorService
     {
+       
 
+        Task<List<DoctorDTO>> GetDoctorsAsync(int? specialtyId);
 
-        Task<DoctorDTO> GetByIdAsync(int doctor_id);
-
-        Task<IEnumerable<DoctorDTO>> GetSlotsByDoctorIdAsync(int specialty_id);
+        Task<List<AvailabilitySlotsDTO>> GetDoctorWithAvailableSlotsAsync(int doctorId);
     }
 }

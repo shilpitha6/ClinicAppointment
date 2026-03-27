@@ -4,7 +4,7 @@ using ClinicAppointmentProject.Models;
 
 namespace ClinicAppointmentProject.Services.PatientService
 {
-    public class PatientService
+    public class PatientService 
     {
         private readonly ClinicAppointmentDatabaseContext _context;
 
@@ -14,13 +14,12 @@ namespace ClinicAppointmentProject.Services.PatientService
         }
 
 
-        //public async Task<IEnumerable<PatientDTO>> GetByIdAsync(int patient_id)
+        //public async Task<IEnumerable<PatientDTO>> GetByIdAsync(int patientId)
         //{
-        //    return await _context.Patient
-        //        .FirstOrDefaultAsync(p => p.patient_id == patient_id);
+        //    return await _context.Patient.FindAsync(patientId);
         //}
 
-        //public async Task<IEnumerable<AppointmentDTO>> GetPatientAppointmentsAsync(int patient_id)
+        //public async Task<List<AppointmentDTO>> GetPatientAppointmentsAsync(int patient_id)
         //{
         //    return await (
         //        from a in _context.Appointment

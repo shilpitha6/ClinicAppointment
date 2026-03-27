@@ -21,13 +21,7 @@ namespace ClinicAppointmentProject.Controllers
             return Ok(specialties);
         }
 
-        [HttpGet("{specialty_id}")]
-        public async Task<IActionResult> GetById(int specialty_id)
-        {
-            var specialty = await _specialty.GetByIdAsync(specialty_id);
-            if (specialty == null) return NotFound();
-            return Ok(specialty);
-        }
+      
 
 
 

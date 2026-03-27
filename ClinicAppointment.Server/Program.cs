@@ -1,4 +1,5 @@
 
+using ClinicAppointment.Server.Services.AppointmentService;
 using ClinicAppointmentProject.Models;
 using ClinicAppointmentProject.Services.AvailabilitySlotsService;
 
@@ -30,6 +31,7 @@ builder.Services.AddDbContext<ClinicAppointmentDatabaseContext>(
 builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IAvailabilitySlotsService, AvailabilitySlotsService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 
 builder.Services.AddControllers();

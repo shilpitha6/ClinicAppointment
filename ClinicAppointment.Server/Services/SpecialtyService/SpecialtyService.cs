@@ -14,14 +14,11 @@ namespace ClinicAppointmentProject.Services.SpecialtyService
             _context = context;
         }
 
-        public async Task<IEnumerable<Specialty>> GetAllAsync()
+        public async Task<List<Specialty>> GetAllAsync()
         {
-            return await _context.Specialty.ToListAsync();
+            return await _context.Specialty.OrderBy(s=>s.specialty_id).ToListAsync();
         }
 
-        public async Task<Specialty> GetByIdAsync(int specialty_id)
-        {
-            return await _context.Specialty.FindAsync(specialty_id);
-        }
+        
     }
 }
