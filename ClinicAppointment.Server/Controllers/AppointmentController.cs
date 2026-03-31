@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClinicAppointmentProject.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/appointments")]
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;

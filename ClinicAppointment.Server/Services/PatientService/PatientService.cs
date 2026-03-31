@@ -1,11 +1,12 @@
 ﻿using ClinicAppointment.Server.DTO;
 using ClinicAppointmentProject.DTO;
 using ClinicAppointmentProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ClinicAppointmentProject.Services.PatientService
 {
-    public class PatientService 
+    public class PatientService : IPatientService
     {
         private readonly ClinicAppointmentDatabaseContext _context;
 

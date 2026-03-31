@@ -6,11 +6,11 @@ import { SlotService } from '../../Services/SlotsService';
 import { BookingStateService } from '../../Services/BookingstateService';
 
 @Component({
-  selector: 'app-slot-picker',
+  selector: 'app-slot-availability',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './slot-picker.html',
-  styleUrl: './slot-picker.css'
+  templateUrl: './slots-availability.html',
+  styleUrl: './slots-availability.css'
 })
 export class SlotAvailability implements OnInit {
   slots = signal<AvailabilitySlot[]>([]);

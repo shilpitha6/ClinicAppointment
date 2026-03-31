@@ -44,7 +44,7 @@ export class BookingConfirm {
 
     this.appointmentService.createAppointment({
       slot_id: slot.slot_id,
-      doctor_id: doctor.doctorId,
+      doctor_id: doctor.doctor_id,
       patient_id: patient.patient_id
     }).subscribe({
       next: () => {

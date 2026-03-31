@@ -12,7 +12,7 @@
   }
 
   @if (loading()) {
-  <p class="loading">Loading available slots...</p>
+  <p class="loading">Loading available slots</p>
   }
 
   @if (error()) {
@@ -27,7 +27,7 @@
     @for (slot of slots(); track slot.slot_id) {
     <div class="slot-card" (click)="selectSlot(slot)">
       <p class="slot-date">
-        {{ slot.slot_date | date: 'EEEE, MMMM d, y' }}
+        {{ slot.slot_date | date: ' MMMM d, y' }}
       </p>
       <p class="slot-time">
         {{ slot.start_time }} – {{ slot.end_time }}

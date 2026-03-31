@@ -9,7 +9,7 @@ export class BookingStateService {
 
   setDoctor(doctor: doctor): void {
     this.selectedDoctor.set(doctor);
-    this.selectedSlot.set(null); // reset slot when doctor changes
+    this.selectedSlot.set(null); 
   }
 
   setSlot(slot: AvailabilitySlot): void {

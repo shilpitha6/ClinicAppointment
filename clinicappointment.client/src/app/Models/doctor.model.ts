@@ -2,9 +2,9 @@ import { Specialty } from "./specialty.model";
 
 
 export interface doctor {
-  doctorId: number;
-  firstName: string;
-  lastName: string;
+  doctor_id: number;
+  first_name: string;
+  last_name: string;
   specialty_id: number;
   specialty: Specialty ;
  

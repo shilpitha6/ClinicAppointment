@@ -16,20 +16,7 @@ import { AuthService } from '../../Services/AuthService';
 export class PatientDashboard implements OnInit {
   appointments = signal<Appointment[]>([]);
   loading = signal(false);
-  expandedId = signal<number | null>(null);
-
-  upcoming = computed(() =>
-    this.appointments().filter(a =>
-      a.status === 'Pending' || a.status === 'Confirmed'
-    )
-  );
-
-  past = computed(() =>
-    this.appointments().filter(a =>
-      a.status === 'Completed' || a.status === 'Cancelled'
-    )
-  );
-
+ 
   constructor(
     private appointmentService: AppointmentService,
     private authService: AuthService,
@@ -53,28 +40,7 @@ export class PatientDashboard implements OnInit {
     });
   }
 
-  toggleHistory(id: number): void {
-    this.expandedId.set(this.expandedId() === id ? null : id);
-  }
+  
 
-  cancelAppointment(appointmentId: number): void {
-    const patient = this.authService.currentPatient();
-    this.appointmentService.updateStatus(appointmentId, {
-      new_status: 'Cancelled',
-      changed_by: patient?.username ?? 'Patient',
-      reason: 'Cancelled by patient'
-    }).subscribe({
-      next: () => this.ngOnInit()
-    });
-  }
-
-  getStatusClass(status: string): string {
-    const map: Record<string, string> = {
-      Pending: 'badge-pending',
-      Confirmed: 'badge-confirmed',
-      Cancelled: 'badge-cancelled',
-      Completed: 'badge-completed'
-    };
-    return map[status] ?? '';
-  }
+ 
 }

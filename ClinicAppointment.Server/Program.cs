@@ -32,7 +32,7 @@ builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 //builder.Services.AddScoped<IAvailabilitySlotsService, AvailabilitySlotsService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-builder.Services.AddScoped<PatientService, PatientService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 
 builder.Services.AddControllers();

@@ -9,11 +9,11 @@ export class DoctorService {
 
   constructor(private http: HttpClient) { }
 
-  getDoctors(specialtyId?: number): Observable<doctor[]> {
+  getDoctors(specialty_id?: number): Observable<doctor[]> {
     let params = new HttpParams();
     
-    if (specialtyId !== undefined && specialtyId !== null && !isNaN(specialtyId)) {
-      params = params.set('specialtyId', specialtyId.toString());
+    if (specialty_id !== undefined && specialty_id !== null && !isNaN(specialty_id)) {
+      params = params.set('specialtyId', specialty_id.toString());
     }
     return this.http.get<doctor[]>(this.apiUrl, { params });
   }

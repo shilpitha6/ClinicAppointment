@@ -76,13 +76,13 @@ namespace ClinicAppointmentProject.Services.DoctorService
                 .Where(s => s.doctor_id == doctorId
                          && !bookedSlotIds.Contains(s.slot_id))
                 .OrderBy(s => s.slot_date)
-                .ThenBy(s => s.slot_time)
+                .ThenBy(s => s.start_time)
                 .Select(s => new AvailabilitySlotsDTO
                 {
                     slot_id = s.slot_id,
                     doctor_id = s.doctor_id,
                     slot_date = s.slot_date,
-                    start_time = s.slot_time,  
+                    start_time = s.start_time,  
                     end_time = s.end_time
                 }).ToListAsync();
         }
