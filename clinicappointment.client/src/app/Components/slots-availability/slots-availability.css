@@ -1,0 +1,83 @@
+.page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.doctor-summary {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.specialty-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.slot-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.2rem;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+  .slot-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.15);
+  }
+
+.slot-date {
+  font-weight: 500;
+  margin: 0 0 0.3rem;
+  font-size: 14px;
+}
+
+.slot-time {
+  color: #64748b;
+  font-size: 13px;
+  margin: 0 0 0.5rem;
+}
+
+.available-tag {
+  background: #dcfce7;
+  color: #166534;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.loading, .empty {
+  color: #64748b;
+  margin-top: 2rem;
+}
+
+.error {
+  color: #dc2626;
+}

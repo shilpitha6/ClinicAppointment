@@ -7,22 +7,19 @@ namespace ClinicAppointmentProject.Controllers
     [Route("api/specialties")]
     public class SpecialtyController : Controller
     {
-        private readonly ISpecialtyService _specialty;
+        private readonly ISpecialtyService _specialtyService;
 
-        public SpecialtyController(ISpecialtyService specialty)
+        public SpecialtyController(ISpecialtyService specialtyService)
         {
-            _specialty = specialty;
+            _specialtyService = specialtyService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var specialties = await _specialty.GetAllAsync();
+            var specialties = await _specialtyService.GetAllAsync();
             return Ok(specialties);
         }
-
-      
-
 
 
     }

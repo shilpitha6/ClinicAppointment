@@ -10,7 +10,7 @@ namespace ClinicAppointmentProject.DTO
 
         public DateOnly slot_date { get; set; }
 
-        public TimeOnly slot_time { get; set; }
+        public TimeOnly start_time { get; set; }
 
         public TimeOnly end_time { get; set; }
 

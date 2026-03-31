@@ -1,0 +1,67 @@
+.page-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.summary-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.label {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.value {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-confirm {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 1rem;
+}
+
+  .btn-confirm:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+  }
+
+  .btn-confirm:hover:not(:disabled) {
+    background: #1d4ed8;
+  }
+
+.error {
+  color: #dc2626;
+  font-size: 14px;
+}

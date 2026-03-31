@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClinicAppointmentProject.Models
 {
@@ -18,6 +19,9 @@ namespace ClinicAppointmentProject.Models
         public string? changed_at { get; set; }
 
         public string? reason { get; set; }
+
+        [ForeignKey("appointment_id")]
+        public Appointment? Appointment { get; set; }
 
 
     }

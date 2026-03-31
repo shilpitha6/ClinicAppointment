@@ -22,5 +22,8 @@ namespace ClinicAppointmentProject.Models
         public string? username { get; set; }
 
         public string? password { get; set; }
+
+        public virtual ICollection<Appointment> Appointments { get; set; }
+      = new List<Appointment>();
     }
 }

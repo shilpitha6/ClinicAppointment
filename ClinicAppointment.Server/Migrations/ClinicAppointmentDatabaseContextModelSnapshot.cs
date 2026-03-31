@@ -36,6 +36,9 @@ namespace ClinicAppointmentProject.Migrations
                     b.Property<int>("doctor_id")
                         .HasColumnType("int");
 
+                    b.Property<int?>("pateint_id")
+                        .HasColumnType("int");
+
                     b.Property<int>("patient_id")
                         .HasColumnType("int");
 
@@ -46,6 +49,12 @@ namespace ClinicAppointmentProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("appointment_id");
+
+                    b.HasIndex("doctor_id");
+
+                    b.HasIndex("pateint_id");
+
+                    b.HasIndex("slot_id");
 
                     b.ToTable("Appointment");
                 });
@@ -70,7 +79,12 @@ namespace ClinicAppointmentProject.Migrations
                     b.Property<TimeOnly>("slot_time")
                         .HasColumnType("time");
 
+                    b.Property<TimeOnly>("start_time")
+                        .HasColumnType("time");
+
                     b.HasKey("slot_id");
+
+                    b.HasIndex("doctor_id");
 
                     b.ToTable("AvailabilitySlots");
                 });
@@ -89,13 +103,12 @@ namespace ClinicAppointmentProject.Migrations
                     b.Property<string>("last_name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("slot_id")
-                        .HasColumnType("int");
-
                     b.Property<int>("specialty_id")
                         .HasColumnType("int");
 
                     b.HasKey("doctor_id");
+
+                    b.HasIndex("specialty_id");
 
                     b.ToTable("Doctor");
                 });
@@ -181,6 +194,8 @@ namespace ClinicAppointmentProject.Migrations
 
                     b.HasKey("status_id");
 
+                    b.HasIndex("appointment_id");
+
                     b.ToTable("StatusHistory");
                 });
 
@@ -198,6 +213,92 @@ namespace ClinicAppointmentProject.Migrations
                     b.HasKey("status_id");
 
                     b.ToTable("StatusLookup");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Appointment", b =>
+                {
+                    b.HasOne("ClinicAppointmentProject.Models.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("doctor_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClinicAppointmentProject.Models.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("pateint_id");
+
+                    b.HasOne("ClinicAppointmentProject.Models.AvailabilitySlots", "AvailabilitySlots")
+                        .WithMany("Appointments")
+                        .HasForeignKey("slot_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AvailabilitySlots");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.AvailabilitySlots", b =>
+                {
+                    b.HasOne("ClinicAppointmentProject.Models.Doctor", "Doctor")
+                        .WithMany("AvailabilitySlots")
+                        .HasForeignKey("doctor_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Doctor", b =>
+                {
+                    b.HasOne("ClinicAppointmentProject.Models.Specialty", "Specialty")
+                        .WithMany("Doctors")
+                        .HasForeignKey("specialty_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.StatusHistory", b =>
+                {
+                    b.HasOne("ClinicAppointmentProject.Models.Appointment", "Appointment")
+                        .WithMany("StatusHistories")
+                        .HasForeignKey("appointment_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Appointment", b =>
+                {
+                    b.Navigation("StatusHistories");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.AvailabilitySlots", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("AvailabilitySlots");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("ClinicAppointmentProject.Models.Specialty", b =>
+                {
+                    b.Navigation("Doctors");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,16 +14,14 @@ namespace ClinicAppointmentProject.Models
 
         public int specialty_id { get; set; }
 
-        public int slot_id { get; set; }
-
-
         [ForeignKey("specialty_id")]
-        public Specialty? Specialty { get; set; }
+        public virtual Specialty? Specialty { get; set; }
 
-        //[ForeignKey("slot_id")]
-        //public AvailabilitySlots? AvailabilitySlots { get; set; }
+        public virtual ICollection<AvailabilitySlots> AvailabilitySlots { get; set; }
+           = new List<AvailabilitySlots>();
 
-        public List<AvailabilitySlots>? AvailabilitySlots { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
+            = new List<Appointment>();
 
     }
 }

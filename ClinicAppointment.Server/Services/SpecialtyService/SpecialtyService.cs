@@ -1,4 +1,5 @@
-﻿using ClinicAppointmentProject.Models;
+﻿using ClinicAppointment.Server.DTO;
+using ClinicAppointmentProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -14,11 +15,18 @@ namespace ClinicAppointmentProject.Services.SpecialtyService
             _context = context;
         }
 
-        public async Task<List<Specialty>> GetAllAsync()
+        public async Task<List<SpecialtyDTO>> GetAllAsync()
         {
-            return await _context.Specialty.OrderBy(s=>s.specialty_id).ToListAsync();
+            return await (
+                from s in _context.Specialty
+                orderby s.specialty_id
+                select new SpecialtyDTO
+                {
+                    specialty_id = s.specialty_id,
+                    Name = s.Name
+                }
+            ).ToListAsync();
         }
 
-        
     }
 }

@@ -13,12 +13,11 @@ namespace ClinicAppointmentProject.DTO
 
         public int? specialty_id { get; set; }
 
-        public int? slot_id { get; set; }
 
-        public SpecialtyDTO Specialty { get; set; }
+        public SpecialtyDTO? Specialty { get; set; }
 
-        public List<AvailabilitySlotsDTO>? AvailableSlots { get; set; }
-        public string? Name { get; internal set; }
-        public List<AvailabilitySlotsDTO>? Slots { get; internal set; }
+        //public List<AvailabilitySlotsDTO>? AvailableSlots { get; set; }
+       
+        
     }
 }

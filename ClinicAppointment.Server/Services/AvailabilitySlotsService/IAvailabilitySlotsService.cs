@@ -5,7 +5,7 @@ namespace ClinicAppointmentProject.Services.AvailabilitySlotsService
     public interface IAvailabilitySlotsService
     {
 
-        Task<IEnumerable<AvailabilitySlotsDTO>> GetSlotsByDoctorIdAsync(int doctor_id);
+        Task<List<AvailabilitySlotsDTO>> GetSlotsByDoctorIdAsync(int doctor_id);
 
 
     }

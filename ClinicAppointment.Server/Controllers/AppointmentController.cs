@@ -1,48 +1,51 @@
 ﻿using ClinicAppointment.Server.Services.AppointmentService;
 using ClinicAppointmentProject.DTO;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace ClinicAppointment.Server.Controllers
+namespace ClinicAppointmentProject.Controllers
 {
     [ApiController]
-    [Route("api/appointments")]
-    public class AppointmentController:ControllerBase
+    [Route("api")]
+    public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
+        
 
         public AppointmentController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> BookAppointment([FromBody] CreateAppointmentDTO dto)
+        public async Task<IActionResult> Book([FromBody] CreateAppointmentDTO dto)
         {
             try
             {
-                var appointment = await _appointmentService.BookAppointmentAsync(dto);
-                return Ok(appointment);
+                var result = await _appointmentService.BookAppointmentAsync(dto);
+                return CreatedAtAction(nameof(Book),
+                    new { id = result.appointment_id }, result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); 
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-    
         [HttpPut("{id}/status")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateStatusDTO dto)
         {
             try
             {
                 var result = await _appointmentService.UpdateStatusAsync(id, dto);
-                return Ok(result);
+                return Ok(new { message = result });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
+
+      
     }
 }

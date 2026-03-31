@@ -1,0 +1,113 @@
+<div class="page-container">
+  <h2>My Appointments</h2>
+
+  @if (loading()) {
+  <p class="loading">Loading your appointments...</p>
+  }
+
+  @if (!loading()) {
+
+ 
+  <section class="section">
+    <h3>Upcoming</h3>
+
+    @if (upcoming().length === 0) {
+    <p class="empty">
+      No upcoming appointments.
+      <a routerLink="/doctors">Book one now →</a>
+    </p>
+    }
+
+    @for (a of upcoming(); track a.appointment_id) {
+    <div class="appointment-card">
+      <div class="appointment-info">
+        <p class="doctor-name">
+          Dr. {{ a.doctor_first_name }} {{ a.doctor_last_name }}
+        </p>
+        <p class="specialty">{{ a.specialty_name }}</p>
+        <p class="datetime">
+          {{ a.slot_date | date: 'MMMM d, y' }} at {{ a.start_time }}
+        </p>
+      </div>
+      <div class="appointment-actions">
+        <span [class]="'badge ' + getStatusClass(a.status)">
+          {{ a.status }}
+        </span>
+        <button class="btn-cancel"
+                (click)="cancelAppointment(a.appointment_id)">
+          Cancel
+        </button>
+        <button class="btn-history"
+                (click)="toggleHistory(a.appointment_id)">
+          {{ expandedId() === a.appointment_id ? 'Hide' : 'History' }}
+        </button>
+      </div>
+
+      @if (expandedId() === a.appointment_id) {
+      <div class="history-panel">
+        <h4>Status History</h4>
+        @for (h of a.status_history; track h.status_id) {
+        <div class="history-row">
+          <span class="history-time">{{ h.changed_at }}</span>
+          <span class="history-change">
+            {{ h.previous_status ?? 'Created' }} → {{ h.updated_status }}
+          </span>
+          <span class="history-by">by {{ h.changed_by }}</span>
+          <span class="history-reason">{{ h.reason }}</span>
+        </div>
+        }
+      </div>
+      }
+    </div>
+    }
+  </section>
+
+
+  <section class="section">
+    <h3>Past</h3>
+
+    @if (past().length === 0) {
+    <p class="empty">No past appointments.</p>
+    }
+
+    @for (a of past(); track a.appointment_id) {
+    <div class="appointment-card past">
+      <div class="appointment-info">
+        <p class="doctor-name">
+          Dr. {{ a.doctor_first_name }} {{ a.doctor_last_name }}
+        </p>
+        <p class="specialty">{{ a.specialty_name }}</p>
+        <p class="datetime">
+          {{ a.slot_date | date: 'MMMM d, y' }} at {{ a.start_time }}
+        </p>
+      </div>
+      <div class="appointment-actions">
+        <span [class]="'badge ' + getStatusClass(a.status)">
+          {{ a.status }}
+        </span>
+        <button class="btn-history"
+                (click)="toggleHistory(a.appointment_id)">
+          {{ expandedId() === a.appointment_id ? 'Hide' : 'History' }}
+        </button>
+      </div>
+
+      @if (expandedId() === a.appointment_id) {
+      <div class="history-panel">
+        <h4>Status History</h4>
+        @for (h of a.status_history; track h.status_id) {
+        <div class="history-row">
+          <span class="history-time">{{ h.changed_at }}</span>
+          <span class="history-change">
+            {{ h.previous_status ?? 'Created' }} → {{ h.updated_status }}
+          </span>
+          <span class="history-by">by {{ h.changed_by }}</span>
+          <span class="history-reason">{{ h.reason }}</span>
+        </div>
+        }
+      </div>
+      }
+    </div>
+    }
+  </section>
+  }
+</div>

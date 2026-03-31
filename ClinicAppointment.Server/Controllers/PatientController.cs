@@ -1,5 +1,6 @@
-﻿using ClinicAppointmentProject.Services.PatientService;
-using Microsoft.AspNetCore.Http;
+﻿using ClinicAppointmentProject.DTO;
+using ClinicAppointmentProject.Services.PatientService;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicAppointmentProject.Controllers
@@ -15,24 +16,50 @@ namespace ClinicAppointmentProject.Controllers
             _patientService = patientService;
         }
 
-        //[HttpGet("{patientId}")]
-        //public async Task<IActionResult> GetById(int patient_id)
-        //{
-        //    var patient = await _patientService.GetByIdAsync(patient_id);
-        //    if (patient == null) return NotFound();
-        //    return Ok(patient);
-        //}
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterPatientDTO dto)
+        {
+            try
+            {
+                var result = await _patientService.RegisterAsync(dto);
+                return CreatedAtAction(nameof(Register),
+                    new { id = result.patient_id }, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
-        //[HttpGet("{id}/appointments")]
-        //public async Task<IActionResult> GetPatientAppointments(int patient_id)
-        //{
-            
-        //    var patient = await _patientService.GetByIdAsync(patient_id);
-        //    if (patient == null) return NotFound($"Patient with id {patient_id} not found");
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO dto)
+        {
+            try
+            {
+                var result = await _patientService.LoginAsync(dto.username, dto.password);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
 
-        //    var appointments = await _patientService.GetPatientAppointmentsAsync(patient_id);
-        //    return Ok(appointments);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var patient = await _patientService.GetByIdAsync(id);
+            if (patient == null)
+                return NotFound(new { message = "Patient not found." });
+            return Ok(patient);
+        }
+
+        [HttpGet("{id}/appointments")]
+        public async Task<IActionResult> GetAppointments(int id)
+        {
+            var appointments = await _patientService.GetPatientAppointmentsAsync(id);
+            return Ok(appointments);
+        }
 
     }
 }

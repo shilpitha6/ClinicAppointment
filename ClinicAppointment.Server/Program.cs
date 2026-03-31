@@ -2,8 +2,8 @@
 using ClinicAppointment.Server.Services.AppointmentService;
 using ClinicAppointmentProject.Models;
 using ClinicAppointmentProject.Services.AvailabilitySlotsService;
-
 using ClinicAppointmentProject.Services.DoctorService;
+using ClinicAppointmentProject.Services.PatientService;
 using ClinicAppointmentProject.Services.SpecialtyService;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,8 +30,9 @@ builder.Services.AddDbContext<ClinicAppointmentDatabaseContext>(
 
 builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
-builder.Services.AddScoped<IAvailabilitySlotsService, AvailabilitySlotsService>();
+//builder.Services.AddScoped<IAvailabilitySlotsService, AvailabilitySlotsService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<PatientService, PatientService>();
 
 
 builder.Services.AddControllers();
