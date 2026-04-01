@@ -105,7 +105,7 @@ namespace ClinicAppointmentProject.Services.PatientService
                     specialty_name = s.Name,
                     slot_id = sl.slot_id,
                     slot_date = sl.slot_date,
-                    start_time = sl.slot_time,
+                    start_time = sl.start_time,
                     end_time = sl.end_time,
                     status = a.status
                 }

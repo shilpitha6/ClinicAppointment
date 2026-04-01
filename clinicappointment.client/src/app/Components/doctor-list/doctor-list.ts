@@ -18,8 +18,7 @@ import { BookingStateService } from '../../Services/BookingstateService';
 export class DoctorList implements OnInit {
   specialties = signal<Specialty[]>([]);
   doctors = signal<doctor[]>([]);
-  loading = signal(false);
-  error = signal('');
+ 
 
   constructor(
     private specialtyService: SpecialtyService,
@@ -30,8 +29,8 @@ export class DoctorList implements OnInit {
 
   ngOnInit(): void {
     this.specialtyService.getAll().subscribe({
-      next: data => this.specialties.set(data),
-      error: () => this.error.set('Failed to load specialties.')
+      next: data => this.specialties.set(data)
+    
     });
     this.loadDoctors();
   }
@@ -57,17 +56,16 @@ export class DoctorList implements OnInit {
   }
 
   private loadDoctors(specialtyId?: number): void {
-    this.loading.set(true);
-    this.error.set('');
+    
     this.doctorService.getDoctors(specialtyId).subscribe({
       next: data => {
         this.doctors.set(data);
-        this.loading.set(false);
+        
       },
       error: () => {
-        this.error.set('Failed to load doctors.');
+       
         this.doctors.set([]);
-        this.loading.set(false);
+       
       }
     });
   }

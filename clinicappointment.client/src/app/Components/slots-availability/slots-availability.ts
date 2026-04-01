@@ -14,9 +14,7 @@ import { BookingStateService } from '../../Services/BookingstateService';
 })
 export class SlotAvailability implements OnInit {
   slots = signal<AvailabilitySlot[]>([]);
-  loading = signal(false);
-  error = signal('');
-
+ 
   constructor(
     private slotService: SlotService,
     public bookingState: BookingStateService,
@@ -31,15 +29,10 @@ export class SlotAvailability implements OnInit {
       return;
     }
 
-    this.loading.set(true);
     this.slotService.getSlotsByDoctor(doctor.doctor_id).subscribe({
       next: data => {
         this.slots.set(data);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Failed to load slots. Please try again.');
-        this.loading.set(false);
+      
       }
     });
   }

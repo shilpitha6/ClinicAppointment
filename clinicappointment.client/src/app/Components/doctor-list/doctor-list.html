@@ -12,21 +12,6 @@
     </select>
   </div>
 
- 
-  @if (loading()) {
-  <p class="loading">Loading doctors...</p>
-  }
-
-
-  @if (error()) {
-  <p class="error">{{ error() }}</p>
-  }
-
-
-  @if (!loading() && doctors().length === 0 && !error()) {
-  <p class="empty">No doctors found for this specialty.</p>
-  }
-
 
   <div class="doctor-grid">
     @for (d of doctors(); track d.doctor_id) {
@@ -36,7 +21,7 @@
         <span class="specialty-badge">{{ d.specialty.name }}</span>
       </div>
       <button class="btn-book" (click)="selectDoctor(d)">
-        Book Appointment
+        Available Slots
       </button>
     </div>
     }

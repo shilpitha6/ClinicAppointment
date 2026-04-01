@@ -27,9 +27,7 @@
     </div>
     }
 
-    @if (error()) {
-    <p class="error">{{ error() }}</p>
-    }
+    
 
     <button class="btn-confirm" (click)="confirmBooking()" [disabled]="loading()">
       {{ loading() ? 'Booking...' : 'Confirm Appointment' }}

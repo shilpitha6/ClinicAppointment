@@ -35,7 +35,7 @@ export class BookingConfirm {
     }
 
     if (!patient) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/dashboard']);
       return;
     }
 

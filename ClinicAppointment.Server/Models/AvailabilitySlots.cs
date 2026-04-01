@@ -13,7 +13,7 @@ namespace ClinicAppointmentProject.Models
 
         public DateOnly slot_date { get; set; }
 
-        public TimeOnly slot_time { get; set; }
+   
 
         public TimeOnly end_time { get; set; }
 
@@ -21,6 +21,6 @@ namespace ClinicAppointmentProject.Models
 
         [ForeignKey("doctor_id")]
         public virtual Doctor? Doctor { get; set; }
-        public TimeOnly start_time { get; internal set; }
+        public TimeOnly start_time { get;  set; }
     }
 }

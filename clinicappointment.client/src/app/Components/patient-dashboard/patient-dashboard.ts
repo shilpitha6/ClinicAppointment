@@ -16,7 +16,7 @@ import { AuthService } from '../../Services/AuthService';
 export class PatientDashboard implements OnInit {
   appointments = signal<Appointment[]>([]);
   loading = signal(false);
- 
+  
   constructor(
     private appointmentService: AppointmentService,
     private authService: AuthService,
@@ -26,7 +26,7 @@ export class PatientDashboard implements OnInit {
   ngOnInit(): void {
     const patient = this.authService.currentPatient();
     if (!patient) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/dashboard']);
       return;
     }
 
@@ -40,7 +40,8 @@ export class PatientDashboard implements OnInit {
     });
   }
 
-  
+
+
 
  
 }
