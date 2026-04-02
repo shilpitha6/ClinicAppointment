@@ -59,16 +59,16 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                     await _context.SaveChangesAsync();
                 }
 
-              
-                //_context.StatusHistory.Add(new StatusHistory
-                //{
-                //    appointment_id = appointment.appointment_id,
-                //    previous_status = null,
-                //    updated_status = "Pending",
-                //    changed_by = "Patient",
-                //    changed_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                //    reason = "Appointment booked"
-                //});
+
+                _context.StatusHistory.Add(new StatusHistory
+                {
+                    appointment_id = appointment.appointment_id,
+                    //previous_status = null,
+                    updated_status = "Pending",
+                    changed_by = "Patient",
+                    changed_at = DateTime.Now,
+                    reason = "Appointment booked"
+                });
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
@@ -117,7 +117,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                     if (slot != null)
                     {
                         slot.is_booked = false;
-                        await _context.SaveChangesAsync();
+                      
                     }
                 }
 
@@ -128,7 +128,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                     previous_status = previousStatus,
                     updated_status = dto.new_status,
                     changed_by = dto.changed_by,
-                    changed_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    changed_at = DateTime.Now,
                     reason = dto.reason
                 });
 

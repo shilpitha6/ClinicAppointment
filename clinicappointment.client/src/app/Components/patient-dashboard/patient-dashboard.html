@@ -1,7 +1,80 @@
 
-<h2>Patient Dashboard</h2>
+<div class="page-container">
+  <h2>Patient Dashboard</h2>
+
+    @if (patient(); as p){
+  <section class="section">
+    <h3>Patient Details</h3>
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{p.first_name}}</td>
+          <td>{{p.last_name}}</td>
+          <td>{{p.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </section>
+  }
+
+  <section class="section">
+    <h3>My Appointment Details</h3>
+
+    @if(!loading() &&appointments().length===0){
+    <p class="empty">No Appoinments found </p>
+    }
+
+    @if(appointments().length>0){
+    <table class="appointments-table">
+      <thead>
+        <tr>
+          <th>DoctorFirstname</th>
+          <th>DoctorLastname</th>
+          <th>Specialty</th>
+          <th>Slot Date</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (a of appointments(); track a.appointment_id){
+        <tr>
+          <td>{{a.doctor_first_name}}</td>
+          <td>{{a.doctor_last_name}}</td>
+          <td>{{a.specialty_name}}</td>
+          <td>{{a.slot_date}}</td>
+          <td>{{a.start_time}}</td>
+          <td>{{a.end_time}}</td>
+          <td [class]="getStatusClass(a.status)">
+            <span class="status-text">{{a.status}}</span>
+          </td>
+          <td>
+            @if (a.status !=='Cancelled' && a.status!=='Completed'){
+            <button class="btn-cancel" (click) ="cancelBooking(a.appointment_id)">
+              Cancel
+            </button>
+            }
+          </td>
+      </tr>
+      }
+      </tbody>
+  
+    
+    </table>
+    }
+  </section>
 
 
+
+</div>
      
 
 

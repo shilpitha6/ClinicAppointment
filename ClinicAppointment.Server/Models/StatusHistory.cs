@@ -16,7 +16,7 @@ namespace ClinicAppointmentProject.Models
 
         public string? changed_by { get; set; }
 
-        public string? changed_at { get; set; }
+        public DateTime changed_at { get; set; }
 
         public string? reason { get; set; }
 

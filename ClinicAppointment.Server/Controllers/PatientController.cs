@@ -16,34 +16,34 @@ namespace ClinicAppointmentProject.Controllers
             _patientService = patientService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterPatientDTO dto)
-        {
-            try
-            {
-                var result = await _patientService.RegisterAsync(dto);
-                return CreatedAtAction(nameof(Register),
-                    new { id = result.patient_id }, result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
+        //[HttpPost("register")]
+        //public async Task<IActionResult> Register([FromBody] RegisterPatientDTO dto)
+        //{
+        //    try
+        //    {
+        //        var result = await _patientService.RegisterAsync(dto);
+        //        return CreatedAtAction(nameof(Register),
+        //            new { id = result.patient_id }, result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO dto)
-        {
-            try
-            {
-                var result = await _patientService.LoginAsync(dto.username, dto.password);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return Unauthorized(new { message = ex.Message });
-            }
-        }
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginDTO dto)
+        //{
+        //    try
+        //    {
+        //        var result = await _patientService.LoginAsync(dto.username, dto.password);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Unauthorized(new { message = ex.Message });
+        //    }
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)

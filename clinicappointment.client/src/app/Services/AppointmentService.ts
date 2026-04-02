@@ -20,11 +20,19 @@ export class AppointmentService {
     );
   }
 
+
   createAppointment(body: CreateAppointmentRequest): Observable<Appointment> {
-    return this.http.post<Appointment>(this.apiUrl, body);
+    return this.http.post<Appointment>(`${this.apiUrl}`, body);
   }
 
-  updateStatus(appointmentId: number, body: UpdateStatusRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${appointmentId}/status`, body);
+  CancelAppointment(appointmentId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${appointmentId}/status`,
+      {
+        new_status: 'Cancelled',
+        changed_by: 'Patient',
+        reason: 'Cancelled by patient from dashboard'
+});
   }
+
+
 }

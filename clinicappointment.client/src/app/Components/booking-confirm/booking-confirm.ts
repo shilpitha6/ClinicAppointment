@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../../Services/AppointmentService';
 import { BookingStateService } from '../../Services/BookingstateService';
-import { AuthService } from '../../Services/AuthService';
+import { Patient } from '../../Models/patient.model';
+
 
 @Component({
   selector: 'app-booking-confirm',
@@ -13,28 +14,39 @@ import { AuthService } from '../../Services/AuthService';
   templateUrl: './booking-confirm.html',
   styleUrl: './booking-confirm.css'
 })
-export class BookingConfirm {
+export class BookingConfirm implements OnInit {
+  patient = signal<Patient | null>(null);
   loading = signal(false);
   error = signal('');
-
+  
+  
   constructor(
     public bookingState: BookingStateService,
     private appointmentService: AppointmentService,
-    private authService: AuthService,
+    
     private router: Router
   ) { }
+
+  ngOnInit(): void {
+    this.patient.set({ patient_id: 1 } as Patient);
+    if (!this.bookingState.selectedDoctor() || !this.bookingState.selectedSlot()) {
+      this.router.navigate(['/doctors']);
+    }
+  }
+
 
   confirmBooking(): void {
     const doctor = this.bookingState.selectedDoctor();
     const slot = this.bookingState.selectedSlot();
-    const patient = this.authService.currentPatient();
+    const currentPatient = this.patient();
+
 
     if (!doctor || !slot) {
       this.router.navigate(['/doctors']);
       return;
     }
 
-    if (!patient) {
+    if (!currentPatient || !currentPatient.patient_id) {
       this.router.navigate(['/dashboard']);
       return;
     }
@@ -45,7 +57,7 @@ export class BookingConfirm {
     this.appointmentService.createAppointment({
       slot_id: slot.slot_id,
       doctor_id: doctor.doctor_id,
-      patient_id: patient.patient_id
+      patient_id: currentPatient.patient_id
     }).subscribe({
       next: () => {
         this.bookingState.clear();
