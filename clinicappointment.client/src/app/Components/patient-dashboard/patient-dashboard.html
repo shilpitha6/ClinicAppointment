@@ -1,90 +1,76 @@
-
 <div class="page-container">
-  <h2>Patient Dashboard</h2>
-
-    @if (patient(); as p){
-  <section class="section">
-    <h3>Patient Details</h3>
-    <table class="details-table">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{p.first_name}}</td>
-          <td>{{p.last_name}}</td>
-          <td>{{p.email}}</td>
-        </tr>
-      </tbody>
-    </table>
-    </section>
-  }
-
-  <section class="section">
-    <h3>My Appointment Details</h3>
-
-    @if(!loading() &&appointments().length===0){
-    <p class="empty">No Appoinments found </p>
+  <div class="header">
+    <h2>Patient Dashboard</h2>
+    @if (patient(); as p) {
+    <h2>{{p.first_name}} {{p.last_name}}</h2>
+    <p class="email-text">Email Id: {{p.email}}</p>
+    } @else {
+    <h2>Loading Patient Profile.....</h2>
     }
+  </div>
 
-    @if(appointments().length>0){
+  <section class="appt-section">
+    <h3>Active Appointments (Upcoming)</h3>
     <table class="appointments-table">
       <thead>
         <tr>
-          <th>DoctorFirstname</th>
-          <th>DoctorLastname</th>
-          <th>Specialty</th>
-          <th>Slot Date</th>
-          <th>Start Time</th>
-          <th>End Time</th>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (a of upcomingAppointments(); track a.appointment_id) {
+        <tr>
+          <td>Dr. {{a.doctor_first_name}} {{a.doctor_last_name}}</td>
+          <td>{{a.slot_date | date:'mediumDate'}}</td>
+          <td>{{a.start_time}}</td>
+          <td [class]="getStatusClass(a.status)">{{a.status}}</td>
+          <td>
+            <div class="action-buttons">
+              @if (a.status === 'Pending') {
+              <button class="btn-confirm" (click)="confirmAppointment(a.appointment_id)">Confirm</button>
+              }
+              @if(a.status === 'Confirmed'){
+              <button class="btn-Complete" (click)="completeAppointment(a.appointment_id)">Complete</button>
+              }
+              <button class="btn-cancel" (click)="cancelAppointment(a.appointment_id)">Cancel</button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr><td colspan="5" class="text-center">No active appointments.</td></tr>
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="appt-section">
+    <div class="section-header">
+      <h3>Past Appointment</h3>
+      
+    </div>
+    <table class="appointments-table history-table">
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Date</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        @for (a of appointments(); track a.appointment_id){
+        @for (a of pastAppointments(); track a.appointment_id) {
         <tr>
-          <td>{{a.doctor_first_name}}</td>
-          <td>{{a.doctor_last_name}}</td>
-          <td>{{a.specialty_name}}</td>
-          <td>{{a.slot_date}}</td>
-          <td>{{a.start_time}}</td>
-          <td>{{a.end_time}}</td>
-          <td [class]="getStatusClass(a.status)">
-            <span class="status-text">{{a.status}}</span>
-          </td>
-          <td>
-            @if (a.status !=='Cancelled' && a.status!=='Completed'){
-            <button class="btn-cancel" (click) ="cancelBooking(a.appointment_id)">
-              Cancel
-            </button>
-            }
-          </td>
-      </tr>
-      }
+          <td>Dr. {{a.doctor_first_name}}</td>
+          <td>{{a.slot_date | date:'mediumDate'}}</td>
+          <td [class]="getStatusClass(a.status)">{{a.status}}</td>
+        </tr>
+        } @empty {
+        <tr><td colspan="3" class="text-center">No history records.</td></tr>
+        }
       </tbody>
-  
-    
     </table>
-    }
   </section>
-
-
-
 </div>
-     
-
-
- 
-
-
-
-
-
-
-
-
-

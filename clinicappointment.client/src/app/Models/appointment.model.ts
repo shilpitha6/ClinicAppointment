@@ -1,5 +1,7 @@
 import { StatusHistory } from './status-history.model';
 
+
+export type AppointmentStatus = 'Confirmed' | 'Completed' | 'Cancelled' | 'Pending';
 export interface Appointment {
   appointment_id: number;
   patient_id: number;
@@ -11,7 +13,7 @@ export interface Appointment {
   slot_date: string;
   start_time: string;
   end_time: string;
-  status: string;
+  status: AppointmentStatus;
   status_history: StatusHistory[];
 }
 
@@ -22,7 +24,7 @@ export interface CreateAppointmentRequest {
 }
 
 export interface UpdateStatusRequest {
-  new_status: string;
+  new_status: AppointmentStatus;
   changed_by: string;
   reason: string;
 }

@@ -60,15 +60,15 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                 }
 
 
-                _context.StatusHistory.Add(new StatusHistory
-                {
-                    appointment_id = appointment.appointment_id,
-                    //previous_status = null,
-                    updated_status = "Pending",
-                    changed_by = "Patient",
-                    changed_at = DateTime.Now,
-                    reason = "Appointment booked"
-                });
+                //_context.StatusHistory.Add(new StatusHistory
+                //{
+                //    appointment_id = appointment.appointment_id,
+                //    previous_status = null,
+                //    updated_status = "Pending",
+                //    changed_by = "Patient",
+                //    changed_at = DateTime.Now,
+                //    reason = "Appointment booked"
+                //});
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();

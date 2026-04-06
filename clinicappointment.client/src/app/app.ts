@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
-import { AuthService } from './Services/AuthService';
+//import { AuthService } from './Services/AuthService';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { AuthService } from './Services/AuthService';
 })
 export class App   {
 
-  constructor(public authService: AuthService) { }
+  //constructor(public authService: AuthService) { }
 
 
 }

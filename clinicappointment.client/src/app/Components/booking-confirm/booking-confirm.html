@@ -28,7 +28,7 @@
     }
 
 
-    <button class="btn-confirm" (click)="confirmBooking()" [disabled]="loading()">
+    <button class="btn-confirm" (click)="confirmBooking()" [disabled]="loading() || submitted()">
       {{ loading() ? 'Booking...' : 'Confirm Appointment' }}
     </button>
   </div>
