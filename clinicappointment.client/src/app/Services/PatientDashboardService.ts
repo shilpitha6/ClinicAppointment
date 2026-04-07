@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Appointment } from '../Models/appointment.model';
-import { Patient } from '../Models/patient.model';
+import { Patient, RegisterPatient, LoginPatient } from '../Models/patient.model';
 
 @Injectable({ providedIn: 'root' })
 export class PatientDashboardService {
@@ -27,7 +27,17 @@ export class PatientDashboardService {
   }
 
 
-  get currentPatientValue(): Patient | null {
+  getcurrentPatientValue(): Patient | null {
     return this.currentPatientSubject.value;
   }
+
+  
+  register(body: RegisterPatient): Observable<Patient> {
+    return this.http.post<Patient>(`${this.apiUrl}/register`, body);
+  }
+
+  login(body: LoginPatient): Observable<Patient> {
+    return this.http.post<Patient>(`${this.apiUrl}/login`, body);
+  }
+
 }

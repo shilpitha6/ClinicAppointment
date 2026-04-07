@@ -61,12 +61,12 @@ namespace ClinicAppointmentProject.Services.PatientService
             if (patient == null)
                 throw new Exception("Invalid username or password.");
 
+            
+
             return new PatientDTO
             {
                 patient_id = patient.patient_id,
-                first_name = patient.first_name,
-                last_name = patient.last_name,
-                email = patient.email,
+               
                 username = patient.username
             };
         }

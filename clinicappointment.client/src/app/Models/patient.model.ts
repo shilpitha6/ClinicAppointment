@@ -6,18 +6,20 @@ export interface Patient {
   username: string;
 }
 
-//export interface RegisterRequest {
-//  first_name: string;
-//  last_name: string;
-//  dob: string;
-//  gender: string;
-//  email: string;
-//  address: string;
-//  username: string;
-//  password: string;
-//}
 
-//export interface LoginRequest {
-//  username: string;
-//  password: string;
-//}
+
+export interface RegisterPatient {
+  first_name: string;
+  last_name: string;
+  dob: string;
+  gender: string;
+  email: string;
+  address: string;
+  username: string;
+  password: string;
+}
+
+export interface LoginPatient {
+  username: string;
+  password: string;
+}
