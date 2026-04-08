@@ -62,7 +62,7 @@ namespace ClinicAppointmentProject.Migrations
                 column: "slot_id",
                 principalTable: "AvailabilitySlots",
                 principalColumn: "slot_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Appointment_Doctor_doctor_id",
@@ -70,7 +70,7 @@ namespace ClinicAppointmentProject.Migrations
                 column: "doctor_id",
                 principalTable: "Doctor",
                 principalColumn: "doctor_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Appointment_Patient_pateint_id",
@@ -93,7 +93,7 @@ namespace ClinicAppointmentProject.Migrations
                 column: "specialty_id",
                 principalTable: "Specialty",
                 principalColumn: "specialty_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_StatusHistory_Appointment_appointment_id",
@@ -101,7 +101,7 @@ namespace ClinicAppointmentProject.Migrations
                 column: "appointment_id",
                 principalTable: "Appointment",
                 principalColumn: "appointment_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />
