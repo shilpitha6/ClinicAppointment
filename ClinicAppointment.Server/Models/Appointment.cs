@@ -18,10 +18,10 @@ namespace ClinicAppointmentProject.Models
 
         public DateOnly created_at { get; set; }
 
-        [ForeignKey("doctor_id")]
+        //[ForeignKey("doctor_id")]
         public virtual  Doctor? Doctor { get; set; }
 
-        [ForeignKey("pateint_id")]
+        //[ForeignKey("patient_id")]
         public virtual Patient? Patient { get; set; }
 
         [ForeignKey("slot_id")]
