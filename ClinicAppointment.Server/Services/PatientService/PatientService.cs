@@ -55,14 +55,14 @@ namespace ClinicAppointmentProject.Services.PatientService
             };
         }
 
-        
+
         public async Task<LoginResponseDTO> LoginAsync(LoginDTO dto)
         {
             return await _jwtService.GenerateTokenAsync(dto);
         }
 
-      
-       
+
+
         public async Task<PatientDTO> GetByIdAsync(int patientId)
         {
             return await (

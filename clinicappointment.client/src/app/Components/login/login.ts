@@ -24,7 +24,7 @@ export class Login {
 
   constructor(
     private patientService: PatientDashboardService,
-    private authService: AuthService,
+ 
     private router: Router
   ) { }
 
@@ -48,7 +48,7 @@ export class Login {
 
     this.patientService.login(this.form).subscribe({
       next: (patient) => {
-        this.authService.setPatient(patient);
+        this.patientService.setPatient(patient);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

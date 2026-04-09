@@ -1,33 +1,41 @@
 import { Injectable, signal } from '@angular/core';
-
-
+import { BehaviorSubject } from 'rxjs';
 import { Patient } from '../Models/patient.model';
+
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
   private readonly STORAGE_KEY = 'clinic_patient';
 
-  currentPatient = signal<Patient | null>(this.loadFromStorage());
+  private currentPatientSubject = new BehaviorSubject<Patient | null>(
+    this.loadFromStorage()           
+  );
+  currentPatient$ = this.currentPatientSubject.asObservable();
+
+ 
+
+  setPatient(patient: Patient | null): void {
+    if (patient) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(patient));
+    } else {
+      localStorage.removeItem(this.STORAGE_KEY);
+    }
+    this.currentPatientSubject.next(patient);
+  }
+
+  getcurrentPatientValue(): Patient | null {
+    return this.currentPatientSubject.value;
+  }
+ 
 
   private loadFromStorage(): Patient | null {
-    const stored = localStorage.getItem(this.STORAGE_KEY);
-    return stored ? JSON.parse(stored) : null;
+    const raw = localStorage.getItem('clinic_patient');
+    return raw ? JSON.parse(raw) : null;
   }
 
-  setPatient(patient: Patient): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(patient));
-    this.currentPatient.set(patient);
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.STORAGE_KEY);
-    this.currentPatient.set(null);
-  }
-
-  isLoggedIn(): boolean {
-    return this.currentPatient() !== null;
-  }
+  
   
 
 }

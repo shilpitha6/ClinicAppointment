@@ -5,31 +5,36 @@
 
   <div class="summary-card">
 
-    @if (bookingState.selectedDoctor(); as doctor) {
+    @if (doctor(); as d) {
     <div class="summary-row">
       <span class="label">Doctor</span>
-      <span class="value">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</span>
+      <span class="value">Dr. {{ d.first_name }} {{ d.last_name }}</span>
     </div>
     <div class="summary-row">
       <span class="label">Specialty</span>
-      <span class="value">{{ doctor.specialty.name }}</span>
+      <span class="value">{{ d.specialty?.name }}</span>
     </div>
+    } @else {
+    <p>Loading doctor details...</p>
     }
 
-    @if (bookingState.selectedSlot(); as slot) {
+    @if (slots(); as s) {
     <div class="summary-row">
       <span class="label">Date</span>
-      <span class="value">{{ slot.slot_date | date: 'EEEE, MMMM d, y' }}</span>
+      <span class="value">{{ s.slot_date | date: 'EEEE, MMMM d, y' }}</span>
     </div>
     <div class="summary-row">
       <span class="label">Time</span>
-      <span class="value">{{ slot.start_time }} – {{ slot.end_time }}</span>
+      <span class="value">{{ s.start_time }} – {{ s.end_time }}</span>
     </div>
+    } @else {
+    <p>Loading slot details...</p>
     }
 
-
-    <button class="btn-confirm" (click)="confirmBooking()" [disabled]="loading() || submitted()">
-      {{ loading() ? 'Booking...' : 'Confirm Appointment' }}
+    <button class="btn-confirm"
+            (click)="confirmBooking()"
+            [disabled]="loading() || submitted() || !doctor() || !slots()">
+      {{ loading() ? 'Booking...' : (submitted() ? 'Booked!' : 'Confirm Appointment') }}
     </button>
   </div>
 </div>

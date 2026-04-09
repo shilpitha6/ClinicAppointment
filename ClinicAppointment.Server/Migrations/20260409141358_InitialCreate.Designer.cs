@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ClinicAppointmentProject.Migrations
+namespace ClinicAppointment.Server.Migrations
 {
     [DbContext(typeof(ClinicAppointmentDatabaseContext))]
-    [Migration("20260408185332_UpdateDatabasename")]
-    partial class UpdateDatabasename
+    [Migration("20260409141358_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +39,6 @@ namespace ClinicAppointmentProject.Migrations
                     b.Property<int>("doctor_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("pateint_id")
-                        .HasColumnType("int");
-
                     b.Property<int>("patient_id")
                         .HasColumnType("int");
 
@@ -55,7 +52,7 @@ namespace ClinicAppointmentProject.Migrations
 
                     b.HasIndex("doctor_id");
 
-                    b.HasIndex("pateint_id");
+                    b.HasIndex("patient_id");
 
                     b.HasIndex("slot_id");
 
@@ -223,12 +220,14 @@ namespace ClinicAppointmentProject.Migrations
                     b.HasOne("ClinicAppointmentProject.Models.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("doctor_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ClinicAppointmentProject.Models.Patient", "Patient")
                         .WithMany("Appointments")
-                        .HasForeignKey("pateint_id");
+                        .HasForeignKey("patient_id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("ClinicAppointmentProject.Models.AvailabilitySlots", "AvailabilitySlots")
                         .WithMany()
