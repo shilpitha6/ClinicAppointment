@@ -1,4 +1,5 @@
 ﻿using ClinicAppointment.Server.DTO;
+using ClinicAppointment.Server.Services.JwtService;
 using ClinicAppointmentProject.DTO;
 using ClinicAppointmentProject.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace ClinicAppointmentProject.Services.PatientService
     public class PatientService : IPatientService
     {
         private readonly ClinicAppointmentDatabaseContext _context;
+        private readonly IJwtService _jwtService;
 
-        public PatientService(ClinicAppointmentDatabaseContext context)
+        public PatientService(ClinicAppointmentDatabaseContext context, IJwtService jwtService)
         {
             _context = context;
+            _jwtService = jwtService;
         }
 
         public async Task<PatientDTO> RegisterAsync(RegisterPatientDTO dto)
@@ -52,25 +55,14 @@ namespace ClinicAppointmentProject.Services.PatientService
             };
         }
 
-        public async Task<PatientDTO> LoginAsync(string? username, string? password)
+        
+        public async Task<LoginResponseDTO> LoginAsync(LoginDTO dto)
         {
-            var patient = await _context.Patient
-                .FirstOrDefaultAsync(p => p.username == username
-                                       && p.password == password);
-
-            if (patient == null)
-                throw new Exception("Invalid username or password.");
-
-            
-
-            return new PatientDTO
-            {
-                patient_id = patient.patient_id,
-               
-                username = patient.username
-            };
+            return await _jwtService.GenerateTokenAsync(dto);
         }
 
+      
+       
         public async Task<PatientDTO> GetByIdAsync(int patientId)
         {
             return await (

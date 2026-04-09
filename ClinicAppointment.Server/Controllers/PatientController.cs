@@ -1,4 +1,5 @@
-﻿using ClinicAppointmentProject.DTO;
+﻿using ClinicAppointment.Server.DTO;
+using ClinicAppointmentProject.DTO;
 using ClinicAppointmentProject.Services.PatientService;
 
 using Microsoft.AspNetCore.Mvc;
@@ -37,14 +38,13 @@ namespace ClinicAppointmentProject.Controllers
         {
             try
             {
-                var result = await _patientService.LoginAsync(dto.username, dto.password);
+                var result = await _patientService.LoginAsync(dto);
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 var message = ex.InnerException?.Message ?? ex.Message;
-
-                return Unauthorized(new { message  });
+                return Unauthorized(new { message });
             }
         }
 
