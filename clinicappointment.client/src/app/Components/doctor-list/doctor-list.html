@@ -23,10 +23,43 @@
       <button class="btn-book" (click)="selectDoctor(d)">
         Available Slots
       </button>
-      <button class="btn-book" (click)="selectDoctor(d)">
-       Slots Reserved
+      <button class="btn-book" (click)="selectDoctor(d)" >
+        Slots Reserved
       </button>
     </div>
     }
   </div>
+  <div class="page-container">
+    <h2>Find a Doctor</h2>
+
+
+    <div class="filter-bar">
+      <label for="specialty">Filter by Specialty:</label>
+      <select id="specialty" (change)="onSpecialtyChange($event)">
+        <option value="">All Specialties</option>
+        @for (s of specialties(); track s.specialty_id) {
+        <option [value]="s.specialty_id">{{ s.name }}</option>
+        }
+      </select>
+    </div>
+
+
+    <div class="doctor-grid">
+      @for (d of doctors(); track d.doctor_id) {
+      <div class="doctor-card">
+        <div class="doctor-info">
+          <h3>Dr. {{ d.first_name }} {{ d.last_name }}</h3>
+          <span class="specialty-badge">{{ d.specialty.name }}</span>
+        </div>
+        <button class="btn-book" (click)="selectDoctor(d)">
+          Available Slots
+        </button>
+        <button class="btn-book">
+          Slots Reserved
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+
 </div>

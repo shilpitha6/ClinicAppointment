@@ -46,6 +46,21 @@ namespace ClinicAppointmentProject.Controllers
             }
         }
 
-      
+        [HttpGet("{doctorId}")]
+        public async Task<IActionResult> GetByDoctor(int doctorId)
+        {
+            try
+            {
+                var result = await _appointmentService.GetAppointmentsByDoctorAsync(doctorId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
+
     }
 }

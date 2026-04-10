@@ -1,9 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AvailabilitySlot } from '../../Models/availability-slot.model';
 import { SlotService } from '../../Services/SlotsService';
-import { BookingStateService } from '../../Services/BookingstateService';
+import { DoctorService } from '../../Services/doctorService';
+import { doctor } from '../../Models/doctor.model';
 
 @Component({
   selector: 'app-slot-availability',
@@ -13,33 +14,39 @@ import { BookingStateService } from '../../Services/BookingstateService';
   styleUrl: './slots-availability.css'
 })
 export class SlotAvailability implements OnInit {
+
   slots = signal<AvailabilitySlot[]>([]);
- 
+  doctor = signal<doctor | null>(null); 
+  doctorId!: number;
+
   constructor(
     private slotService: SlotService,
-    public bookingState: BookingStateService,
+    private doctorService: DoctorService, 
+    private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    const doctor = this.bookingState.selectedDoctor();
+    this.doctorId = Number(this.route.snapshot.paramMap.get('doctorId'));
 
-    if (!doctor) {
+    if (!this.doctorId) {
       this.router.navigate(['/doctors']);
       return;
     }
 
-    this.slotService.getSlotsByDoctor(doctor.doctor_id).subscribe({
-      next: data => {
-        this.slots.set(data);
-      
-      }
+  
+    this.doctorService.getDoctorById(this.doctorId).subscribe({
+      next: data => this.doctor.set(data)
+    });
+
+  
+    this.slotService.getSlotsByDoctor(this.doctorId).subscribe({
+      next: data => this.slots.set(data)
     });
   }
 
   selectSlot(slot: AvailabilitySlot): void {
-    this.bookingState.setSlot(slot);
-    this.router.navigate(['/booking/confirm']);
+    this.router.navigate(['/booking/confirm', this.doctorId, slot.slot_id]);
   }
 
   goBack(): void {

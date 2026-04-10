@@ -1,4 +1,5 @@
-﻿using ClinicAppointment.Server.Services.AppointmentService;
+﻿using ClinicAppointment.Server.DTO;
+using ClinicAppointment.Server.Services.AppointmentService;
 using ClinicAppointmentProject.DTO;
 using ClinicAppointmentProject.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
 
             try
             {
-                
+
                 bool isSlotTaken = await _context.Appointment
                     .AnyAsync(a => a.slot_id == dto.slot_id
                                && a.status != "Cancelled");
@@ -28,7 +29,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                 if (isSlotTaken)
                     throw new Exception("Slot is already booked. Please choose another slot.");
 
-                
+
                 bool slotExists = await _context.AvailabilitySlots
                     .AnyAsync(s => s.slot_id == dto.slot_id
                                && s.doctor_id == dto.doctor_id);
@@ -36,7 +37,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                 if (!slotExists)
                     throw new Exception("Slot does not belong to this doctor.");
 
-             
+
                 var appointment = new Appointment
                 {
                     slot_id = dto.slot_id,
@@ -49,7 +50,7 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                 _context.Appointment.Add(appointment);
                 await _context.SaveChangesAsync();
 
-           
+
                 var slot = await _context.AvailabilitySlots
                     .FirstOrDefaultAsync(s => s.slot_id == dto.slot_id);
 
@@ -104,11 +105,11 @@ namespace ClinicAppointment.Server.Services.AppointmentService
 
                 string previousStatus = appointment.status!;
 
-             
+
                 appointment.status = dto.new_status;
                 await _context.SaveChangesAsync();
 
-                
+
                 if (dto.new_status == "Cancelled")
                 {
                     var slot = await _context.AvailabilitySlots
@@ -117,11 +118,11 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                     if (slot != null)
                     {
                         slot.is_booked = false;
-                      
+
                     }
                 }
 
-           
+
                 _context.StatusHistory.Add(new StatusHistory
                 {
                     appointment_id = appointmentId,
@@ -142,6 +143,40 @@ namespace ClinicAppointment.Server.Services.AppointmentService
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+    
+
+    public async Task<List<AppointmentDetailsDTO>> GetAppointmentsByDoctorAsync(int doctorId)
+        {
+            return await _context.Appointment
+                .Where(a => a.doctor_id == doctorId)
+                .Join(_context.AvailabilitySlots,
+                      a => a.slot_id,
+                      s => s.slot_id,
+                      (a, s) => new { a, s })
+                .Join(_context.Doctor,
+                      x => x.a.doctor_id,
+                      d => d.doctor_id,
+                      (x, d) => new { x.a, x.s, d })
+                .Join(_context.Patient,
+                      x => x.a.patient_id,
+                      p => p.patient_id,
+                      (x, p) => new AppointmentDetailsDTO
+                      {
+                          appointment_id = x.a.appointment_id,
+                          patient_id = x.a.patient_id,
+                          doctor_id = x.a.doctor_id,
+                          doctor_first_name = x.d.first_name,
+                          doctor_last_name = x.d.last_name,
+                          specialty_name = "",
+                          slot_id = x.a.slot_id,
+                          slot_date = x.s.slot_date.ToString(),
+                          start_time = x.s.start_time.ToString(),
+                          end_time = x.s.end_time.ToString(),
+                          status = x.a.status!
+                          
+                      })
+                .ToListAsync();
         }
     }
 }

@@ -6,6 +6,6 @@ namespace ClinicAppointment.Server.Services.AppointmentService
     {
         Task<AppointmentDTO> BookAppointmentAsync(CreateAppointmentDTO dto);
         Task<string> UpdateStatusAsync(int appointmentId, UpdateStatusDTO dto);
-
+        Task<List<AppointmentDetailsDTO>> GetAppointmentsByDoctorAsync(int doctorId);
     }
 }

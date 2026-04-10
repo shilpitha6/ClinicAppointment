@@ -18,7 +18,7 @@
     <p>Loading doctor details...</p>
     }
 
-    @if (slots(); as s) {
+    @if (getSelectedSlot(); as s) {
     <div class="summary-row">
       <span class="label">Date</span>
       <span class="value">{{ s.slot_date | date: 'EEEE, MMMM d, y' }}</span>

@@ -1,151 +1,259 @@
+:host {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --bg-body: #f8fafc;
 
-.page-container {
-  max-width: 1000px;
+}
+
+.dashboard-container {
+  max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 1rem;
-  font-family: 'Inter', system-ui, sans-serif;
+  padding: 0 1.5rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
 }
 
-.header {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  gap: 1rem;
 }
 
-  .header h2 {
+.welcome-box h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 2.5rem;
+}
+
+
+.appointment-section {
+  margin-bottom: 3.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+  .section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
     margin: 0;
-    color: #1e293b;
-    font-size: 1.5rem;
   }
 
-.email-text {
-  color: #64748b;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+.count-badge {
+  background: var(--primary);
+  color: white;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-
-.appt-section {
-  margin-bottom: 3rem;
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-  .appt-section h3 {
-    font-size: 1.2rem;
-    color: #334155;
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-
-.appointments-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+.appointment-card {
+  background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-
-  .appointments-table th {
-    background: #f8fafc;
-    padding: 1rem;
-    text-align: left;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-    color: #64748b;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .appointments-table td {
-    padding: 1rem;
-    vertical-align: middle;
-    border-bottom: 1px solid #f1f5f9;
-    color: #1e293b;
-    font-size: 14px;
-  }
-
-
-.status-pending {
-  background: #fef3c7;
-  color: #92400e;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.status-confirmed {
-  background: #dcfce7;
-  color: #166534;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.status-cancelled {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-
-.action-buttons {
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--card-shadow);
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  transition: transform 0.2s;
 }
 
-.btn-confirm, .btn-Complete {
-  background: #2563eb;
+  .appointment-card:hover {
+    transform: translateY(-4px);
+  }
+
+.card-status-bar {
+  height: 6px;
+  width: 100%;
+}
+
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.date-time {
+  margin-bottom: 1rem;
+}
+
+  .date-time .date {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .date-time .time {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+.doctor-info {
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+  .doctor-info .label {
+    color: var(--text-muted);
+    margin-right: 0.5rem;
+  }
+
+
+.btn-primary {
+  background: var(--primary);
   color: white;
   border: none;
-  padding: 0.5rem 0.9rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 13px;
   transition: background 0.2s;
 }
 
-  .btn-confirm:hover {
-    background: #1d4ed8;
+  .btn-primary:hover {
+    background: var(--primary-hover);
   }
 
-.btn-Complete {
-  background: #10b981;
-}
-
-  .btn-Complete:hover {
-    background: #059669;
-  }
-
-.btn-cancel {
-  background: #fff;
-  color: #dc2626;
-  border: 1px solid #fecaca;
-  padding: 0.5rem 0.9rem;
+.btn-outline-success {
+  width: 100%;
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger-bg);
+  padding: 0.6rem;
   border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 13px;
+  transition: all 0.2s;
 }
 
-  .btn-cancel:hover {
-    background: #fef2f2;
+  .btn-outline-success:hover {
+    background: var(--danger));
+    color: white;
   }
 
 
-.text-center {
+.btn-outline-danger {
+  width: 100%;
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger-bg);
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+  .btn-outline-danger:hover {
+    background: var(--danger);
+    color: white;
+  }
+
+.card-actions {
+  display: flex; 
+  gap: 120px; 
+  padding: 1rem;
+  background: #fafafa;
+}
+
+
+.status-green {
+  background-color: var(--success);
+}
+
+.status-yellow {
+  background-color: var(--warning);
+}
+
+.status-red {
+  background-color: var(--danger);
+}
+
+
+
+.status-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+}
+
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+  .dashboard-table th {
+    background: #f8fafc;
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .dashboard-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+.status-pill {
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+}
+
+
+.empty-state, .loading-state {
   text-align: center;
-  color: #94a3b8;
-  padding: 2rem !important;
+  padding: 3rem;
+  background: #f1f5f9;
+  border-radius: 12px;
+  color: var(--text-muted);
+  grid-column: 1 / -1;
 }

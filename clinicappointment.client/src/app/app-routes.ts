@@ -11,8 +11,8 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
  
   { path: 'doctors', component: DoctorList },
-  { path: 'booking/slots', component: SlotAvailability },
-  { path: 'booking/confirm', component: BookingConfirm },
+  { path: 'booking/slots/:doctorId', component: SlotAvailability },
+  { path: 'booking/confirm/:doctorId/:slotId', component: BookingConfirm },
   { path: 'dashboard', component: PatientDashboard },
   { path: 'login', component: Login },
   { path: 'register', component: Register }

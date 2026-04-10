@@ -4,7 +4,7 @@
   <h2>Available Slots</h2>
 
 
-  @if (bookingState.selectedDoctor(); as doctor) {
+  @if (doctor(); as doctor) {
   <div class="doctor-summary">
     <p><strong>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</strong></p>
     <span class="specialty-badge">{{ doctor.specialty.name }}</span>

@@ -35,4 +35,8 @@ export class AppointmentService {
       });
   }
 
+  getAppointmentsByDoctor(doctorId: number) {
+    return this.http.get<any[]>(`/api/appointments/doctor/${doctorId}`);
+  }
+
 }

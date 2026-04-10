@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
 import { AppointmentService } from '../../Services/AppointmentService';
-import { BookingStateService } from '../../Services/BookingstateService';
+
 import { Patient } from '../../Models/patient.model';
 import { PatientDashboardService } from '../../Services/PatientDashboardService';
 import { DoctorService } from '../../Services/doctorService';
@@ -34,7 +34,6 @@ export class BookingConfirm implements OnInit {
     private route: ActivatedRoute,
     private doctorService: DoctorService,
     private slotService: SlotService,
-
     private appointmentService: AppointmentService,
     private patientDashboardService: PatientDashboardService,
     private router: Router
@@ -64,10 +63,8 @@ export class BookingConfirm implements OnInit {
   loadData(docId: number) {
     this.loading.set(true);
 
-    
     this.doctorService.getDoctorById(docId).subscribe(data => this.doctor.set(data));
 
-  
     this.slotService.getSlotsByDoctor(docId).subscribe({
       next: (data: AvailabilitySlot[]) => {
         this.slots.set(data);
@@ -113,7 +110,8 @@ export class BookingConfirm implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/booking/slots', this.doctor()?.doctor_id]);
+    const doctorId = Number(this.route.snapshot.paramMap.get('doctorId'));
+    this.router.navigate(['/booking/slots', doctorId]);
   }
 
   ngOnDestroy(): void {
