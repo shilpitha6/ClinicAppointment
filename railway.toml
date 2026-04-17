@@ -3,5 +3,5 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-healthcheckPath = "/swagger"
+healthcheckPath = "/health"
 restartPolicyType = "on_failure"
